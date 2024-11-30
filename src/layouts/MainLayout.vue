@@ -82,6 +82,12 @@ const linksList = [
     icon: "app_registration",
     link: "#/registracijaKorisnika",
   },
+  {
+    title: "Postavke",
+    caption: "Postavke aplikacije",
+    icon: "settings",
+    link: "#/postavke",
+  },
 ];
 
 const leftDrawerOpen = ref(false);
