@@ -34,6 +34,12 @@ const routes = [
           return import("pages/RegistracijaKorisnikaPage.vue");
         },
       },
+      {
+        path: "/postavke",
+        component: () => {
+          return import("pages/PostavkePage.vue");
+        },
+      },
     ],
   },
 

@@ -5,7 +5,7 @@
       <img
         alt="Pets&Care"
         src="~assets/Pets&Care.svg"
-        class="logo"
+        class="logo animate-logo"
       />
 
       <!-- Dodajemo naslov i opis -->
@@ -59,6 +59,25 @@ function navigateTo(routeName) {
   width: 80%; /* Smanjujemo logo na mobilnim uređajima */
   max-width: 400px; /* Maksimalna širina loga */
   height: auto;
+}
+
+/* Animacija za logo */
+.animate-logo {
+  opacity: 0;
+  transform: translateY(50px);
+  animation: slideUp 1s ease-out forwards;
+}
+
+/* Ključne točke animacije */
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .page-title {
