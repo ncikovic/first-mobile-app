@@ -35,7 +35,7 @@ export default {
           id: 1,
           ime: "Marko",
           prezime: "Horvat",
-          lokacija: "Zagreb",
+          lokacija: "Zagreb, Ulica grada Vukovara 184",
           radno_vrijeme: "Pon - Pet: 08:00 - 16:00",
           kontakt_email: "marko.horvat@email.com",
           kontakt_telefon: "091 234 5678",
@@ -45,7 +45,7 @@ export default {
           id: 2,
           ime: "Ana",
           prezime: "Kovač",
-          lokacija: "Split",
+          lokacija: "Split, Obala kneza Domagoja 5",
           radno_vrijeme: "Pon - Pet: 09:00 - 17:00",
           kontakt_email: "ana.kovac@email.com",
           kontakt_telefon: "098 765 4321",
@@ -55,7 +55,7 @@ export default {
           id: 3,
           ime: "Ivana",
           prezime: "Petrović",
-          lokacija: "Rijeka",
+          lokacija: "Rijeka, Zagrebačka 20",
           radno_vrijeme: "Pon - Pet: 08:30 - 15:30",
           kontakt_email: "ivana.petrovic@email.com",
           kontakt_telefon: "091 112 2334",
@@ -65,7 +65,7 @@ export default {
           id: 4,
           ime: "Luka",
           prezime: "Simek",
-          lokacija: "Osijek",
+          lokacija: "Osijek, Trg Ante Starčevića 4",
           radno_vrijeme: "Pon - Pet: 10:00 - 18:00",
           kontakt_email: "luka.simek@email.com",
           kontakt_telefon: "099 334 4556",
@@ -75,7 +75,7 @@ export default {
           id: 5,
           ime: "Petra",
           prezime: "Jurić",
-          lokacija: "Rijeka",
+          lokacija: "Rijeka, Adamićeva 7",
           radno_vrijeme: "Pon - Pet: 08:00 - 14:00",
           kontakt_email: "petra.juric@email.com",
           kontakt_telefon: "091 654 9876",
@@ -85,7 +85,7 @@ export default {
           id: 6,
           ime: "Ivan",
           prezime: "Tomić",
-          lokacija: "Pula",
+          lokacija: "Pula, Veruda 12",
           radno_vrijeme: "Pon - Pet: 09:00 - 16:00",
           kontakt_email: "ivan.tomic@email.com",
           kontakt_telefon: "098 123 4567",
@@ -95,7 +95,7 @@ export default {
           id: 7,
           ime: "Maja",
           prezime: "Zorić",
-          lokacija: "Dubrovnik",
+          lokacija: "Dubrovnik, Lapad 15",
           radno_vrijeme: "Pon - Pet: 08:30 - 17:00",
           kontakt_email: "maja.zoric@email.com",
           kontakt_telefon: "091 555 6677",
@@ -105,7 +105,7 @@ export default {
           id: 8,
           ime: "Nikola",
           prezime: "Ivić",
-          lokacija: "Zagreb",
+          lokacija: "Zagreb, Trg bana Jelačića 1",
           radno_vrijeme: "Pon - Pet: 10:00 - 18:00",
           kontakt_email: "nikola.ivic@email.com",
           kontakt_telefon: "099 666 7777",
@@ -115,7 +115,7 @@ export default {
           id: 9,
           ime: "Jana",
           prezime: "Lukić",
-          lokacija: "Osijek",
+          lokacija: "Osijek, Državni trg 2",
           radno_vrijeme: "Pon - Pet: 08:00 - 16:00",
           kontakt_email: "jana.lukic@email.com",
           kontakt_telefon: "091 789 1234",
@@ -125,7 +125,7 @@ export default {
           id: 10,
           ime: "Karla",
           prezime: "Šarić",
-          lokacija: "Zadar",
+          lokacija: "Zadar, Obala kralja Petra Krešimira 2",
           radno_vrijeme: "Pon - Pet: 09:00 - 15:00",
           kontakt_email: "karla.saric@email.com",
           kontakt_telefon: "098 234 5678",
@@ -232,5 +232,48 @@ p {
   background: #7434db;
   color: rgb(148, 85, 231);
   border-radius: 8px;
+}
+
+@media (max-width: 768px) {
+  h1 {
+    font-size: 2rem;
+  }
+
+  p {
+    font-size: 1.2rem;
+  }
+
+  .q-table {
+    font-size: 14px;
+  }
+
+  .q-table th,
+  .q-table td {
+    padding: 8px;
+  }
+
+  .q-my-md {
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  h1 {
+    font-size: 1.8rem;
+  }
+
+  p {
+    font-size: 1rem;
+  }
+
+  .q-table {
+    font-size: 12px;
+  }
+
+  .q-table th,
+  .q-table td {
+    padding: 6px;
+  }
 }
 </style>

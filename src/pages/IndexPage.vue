@@ -5,7 +5,7 @@
       <img
         alt="Pets&Care"
         src="~assets/Pets&Care.svg"
-        style="width: 400px; height: 400px"
+        class="logo"
       />
 
       <!-- Dodajemo naslov i opis -->
@@ -34,7 +34,6 @@
 </template>
 
 <script setup>
-import routes from "src/router/routes";
 import { useRouter } from "vue-router";
 
 defineOptions({
@@ -44,14 +43,22 @@ defineOptions({
 const router = useRouter();
 
 // Navigacija prema stranicama
-function navigateTo(routes) {
-  router.push(`/${routes}`);
+function navigateTo(routeName) {
+  router.push(`/${routeName}`);
 }
 </script>
 
 <style scoped>
 .container {
   text-align: center;
+  padding: 20px;
+  width: 100%;
+}
+
+.logo {
+  width: 80%; /* Smanjujemo logo na mobilnim uređajima */
+  max-width: 400px; /* Maksimalna širina loga */
+  height: auto;
 }
 
 .page-title {
@@ -69,7 +76,41 @@ function navigateTo(routes) {
 .actions {
   margin-top: 20px;
   display: flex;
+  flex-direction: column; /* Promjena u kolonu na manjim ekranima */
   justify-content: center;
   gap: 15px;
+}
+
+.q-btn {
+  min-width: 200px;
+}
+
+@media (max-width: 600px) {
+  .page-title {
+    font-size: 2rem; /* Smanjenje veličine naslova na manjim ekranima */
+  }
+
+  .page-description {
+    font-size: 1.2rem; /* Smanjenje veličine opisa */
+  }
+
+  .actions {
+    flex-direction: column; /* Raspored gumba u koloni */
+    gap: 10px;
+  }
+
+  .q-btn {
+    min-width: 180px; /* Manje dugme na manjim ekranima */
+  }
+}
+
+@media (max-width: 400px) {
+  .page-title {
+    font-size: 1.8rem; /* Još manje na najmanjim ekranima */
+  }
+
+  .page-description {
+    font-size: 1rem; /* Smanjenje fonta opisa */
+  }
 }
 </style>
