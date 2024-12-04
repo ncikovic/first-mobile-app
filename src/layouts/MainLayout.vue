@@ -55,7 +55,7 @@ const linksList = [
   {
     title: "O nama",
     caption: "Saznaj o Pets&Care zajednici!",
-    icon: "favourite",
+    icon: "pets",
     link: "#/o_nama",
   },
   {

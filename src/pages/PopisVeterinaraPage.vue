@@ -13,6 +13,7 @@
       placeholder="Upišite ime, prezime ili specijalizaciju za životinje"
       debounce="300"
       class="q-mb-md"
+      outlined
     />
 
     <q-table
@@ -186,54 +187,57 @@ export default {
 </script>
 
 <style scoped>
+/* Naslov */
 h1 {
   font-size: 2.5rem;
   color: #422c50;
   margin-bottom: 20px;
+  font-weight: bold;
 }
 
+/* Podnaslov */
 p {
   font-size: 1.5rem;
   color: #7f8c8d;
   margin-bottom: 40px;
 }
 
+/* Stil za tablicu */
 .q-table {
   max-width: 100%;
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  overflow-x: auto; /* Omogućava pomicanje tablice na manjim ekranima */
 }
 
-.q-table th,
-.q-table td {
+/* Stil za naslov tablice */
+.q-table th {
+  background-color: #8537cf;
+  color: #fff;
   padding: 12px;
+  font-weight: bold;
   text-align: left;
 }
 
-.q-table th {
-  background-color: #8537cf;
-  color: #34495e;
-}
-
+/* Stil za ćelije tablice */
 .q-table td {
+  padding: 12px;
   color: #7bc1c6;
+  font-size: 1rem;
 }
 
+/* Razmak između tablice i drugih elemenata */
 .q-my-md {
   margin-top: 40px;
   margin-bottom: 40px;
 }
 
+/* Centriranje teksta */
 .text-center {
   text-align: center;
 }
 
-.q-btn {
-  background: #7434db;
-  color: rgb(148, 85, 231);
-  border-radius: 8px;
-}
-
+/* Responsivni dizajn za manje ekrane */
 @media (max-width: 768px) {
   h1 {
     font-size: 2rem;
@@ -241,10 +245,6 @@ p {
 
   p {
     font-size: 1.2rem;
-  }
-
-  .q-table {
-    font-size: 14px;
   }
 
   .q-table th,
@@ -255,25 +255,6 @@ p {
   .q-my-md {
     margin-top: 20px;
     margin-bottom: 20px;
-  }
-}
-
-@media (max-width: 480px) {
-  h1 {
-    font-size: 1.8rem;
-  }
-
-  p {
-    font-size: 1rem;
-  }
-
-  .q-table {
-    font-size: 12px;
-  }
-
-  .q-table th,
-  .q-table td {
-    padding: 6px;
   }
 }
 </style>

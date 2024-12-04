@@ -21,12 +21,14 @@
           label="SAZNAJ VIŠE O NAMA"
           color="primary"
           @click="navigateTo('o_nama')"
+          class="action-btn"
         />
         <q-btn
           label="PRIKLJUČI SE NAŠOJ ZAJEDNICI"
           color="secondary"
           outline
           @click="navigateTo('registracijaKorisnika')"
+          class="action-btn"
         />
       </div>
     </div>
@@ -53,12 +55,14 @@ function navigateTo(routeName) {
   text-align: center;
   padding: 20px;
   width: 100%;
+  max-width: 800px; /* Limiting container width */
 }
 
 .logo {
   width: 80%; /* Smanjujemo logo na mobilnim uređajima */
   max-width: 400px; /* Maksimalna širina loga */
   height: auto;
+  margin-bottom: 30px; /* Povećan razmak ispod loga */
 }
 
 /* Animacija za logo */
@@ -83,12 +87,14 @@ function navigateTo(routeName) {
 .page-title {
   font-size: 2.5rem;
   margin-top: 20px;
-  color: #7e23f5; /* Primarna boja za naslov */
+  color: #422c50; /* Primarna boja za naslov */
+  font-weight: bold;
+  letter-spacing: 1px; /* Povećanje razmaka između slova */
 }
 
 .page-description {
   font-size: 1.4rem;
-  color: #5118a6; /* Suptilna siva za opis */
+  color: #422c50; /* Suptilna siva za opis */
   margin: 10px 0 20px;
 }
 
@@ -100,8 +106,22 @@ function navigateTo(routeName) {
   gap: 15px;
 }
 
-.q-btn {
+.action-btn {
   min-width: 200px;
+  transition: transform 0.3s ease; /* Dodajemo animaciju pri hoveru */
+}
+
+.action-btn:hover {
+  transform: scale(1.05); /* Lagano povećanje gumba pri hoveru */
+}
+
+.q-btn {
+  transition: background-color 0.3s ease; /* Animacija za boju gumba */
+}
+
+.q-btn:hover {
+  background-color: #7e23f5; /* Promjena boje pri hoveru */
+  color: white; /* Osiguravamo da tekst bude bijeli prilikom hovera */
 }
 
 @media (max-width: 600px) {
