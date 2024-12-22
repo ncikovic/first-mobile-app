@@ -25,31 +25,51 @@
 
       <!-- Potvrdi -->
       <q-btn label="Potvrdi" color="primary" @click="loginUser" class="full-width-btn" />
+
+      <!-- Poruka o uspjehu -->
+      <div v-if="loginSuccess" class="text-center text-green-500 mt-4">
+        Prijava uspješna!
+      </div>
     </div>
   </q-page>
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   data() {
     return {
       username: "",
       password: "",
+      loginSuccess: false, // Za prikazivanje poruke o uspjehu
     };
   },
   methods: {
-    loginUser() {
-      // Provjera da li su uneseni korisničko ime i lozinka
+    async loginUser() {
       if (this.username && this.password) {
-        // Ako su podaci ispravni, obriši polja i preusmjeri korisnika
-        console.log("Podaci za prijavu:", this.username, this.password);
+        const loginData = {
+          username: this.username,
+          password: this.password,
+        };
 
-        // Očisti input polja
-        this.username = "";
-        this.password = "";
+        try {
+          const response = await axios.post("http://localhost:3000/api/login", loginData);
+          console.log("Prijava uspješna:", response.data);
 
-        // Preusmjeri korisnika na stranicu Popis Knjiga
-        this.$router.push({ name: "PopisKnjigaPage" }); // Pretpostavka je da ruta ima naziv 'PopisKnjigaPage'
+          // Spremanje korisničkih podataka
+          localStorage.setItem("users", JSON.stringify(response.data.user));
+
+          // Postavi loginSuccess na true kako bi prikazao poruku
+          this.loginSuccess = true;
+
+          // Resetiraj korisničko ime i lozinku
+          this.username = "";
+          this.password = "";
+        } catch (error) {
+          console.error("Greška pri prijavi:", error);
+          alert(error.response ? error.response.data : "Došlo je do greške");
+        }
       } else {
         alert("Molimo unesite korisničko ime i lozinku.");
       }
