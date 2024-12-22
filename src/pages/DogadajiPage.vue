@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container">
     <q-splitter
       v-model="splitterModel"
       style="
@@ -18,28 +18,20 @@
       </template>
 
       <template v-slot:after>
-        <q-tab-panels
-          v-model="date"
-          animated
-          transition-prev="jump-up"
-          transition-next="jump-up"
-        >
-          <q-tab-panel v-for="event in events" :name="event" :key="event">
-            <div class="event-detail">
-              <div class="text-h4 q-mb-md">{{ event }}</div>
-              <p>
-                <strong>NAZIV DOGAĐAJA:</strong> {{ eventDetails[event].name }}
-              </p>
-              <p>
-                <strong>MJESTO DOGAĐAJA:</strong>
-                {{ eventDetails[event].location }}
-              </p>
-              <p>
-                <strong>OPIS:</strong> {{ eventDetails[event].description }}
-              </p>
-            </div>
-          </q-tab-panel>
-        </q-tab-panels>
+        <div class="event-details-container">
+          <div v-if="eventDetails[date]" class="event-detail">
+            <div class="text-h4 q-mb-md">{{ date }}</div>
+            <p>
+              <strong>NAZIV DOGAĐAJA:</strong> {{ eventDetails[date].name }}
+            </p>
+            <p>
+              <strong>MJESTO DOGAĐAJA:</strong> {{ eventDetails[date].location }}
+            </p>
+            <p>
+              <strong>OPIS:</strong> {{ eventDetails[date].description }}
+            </p>
+          </div>
+        </div>
       </template>
     </q-splitter>
   </div>
@@ -208,6 +200,13 @@ export default {
 </script>
 
 <style scoped>
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+}
+
 #map {
   height: 100%;
   border-radius: 10px;
@@ -256,5 +255,26 @@ export default {
 
 .q-pa-md {
   padding: 16px;
+}
+
+@media (max-width: 768px) {
+  .calendar-container {
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+
+  #map {
+    height: 300px;
+  }
+
+  .q-splitter__before {
+    height: auto;
+  }
+
+  .event-detail {
+    width: 100%;
+    font-size: 14px;
+  }
 }
 </style>

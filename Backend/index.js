@@ -300,27 +300,28 @@ app.post("/api/registracija", (req, res) => {
 
 // API rute za prijavu
 app.post("/api/login", (req, res) => {
-  const { username, password } = req.body;
+  const { usernameOrEmail, password } = req.body;
 
-  if (!username || !password) {
-    return res.status(400).send("Korisničko ime i lozinka su obavezni.");
+  // Provjera da su oba polja unesena
+  if (!usernameOrEmail || !password) {
+    return res.status(400).send("Korisničko ime/email i lozinka su obavezni.");
   }
 
-  // Provjera u bazi podataka
-  const query = "SELECT * FROM users WHERE username = ?";
-  connection.query(query, [username], (error, results) => {
+  // Provjera u bazi podataka prema korisničkom imenu ili emailu
+  const query = "SELECT * FROM users WHERE username = ? OR email = ?";
+  connection.query(query, [usernameOrEmail, usernameOrEmail], (error, results) => {
     if (error) {
       return res.status(500).send("Greška pri provjeri korisničkih podataka.");
     }
 
     if (results.length === 0) {
-      return res.status(404).send("Korisničko ime nije pronađeno.");
+      return res.status(404).send("Korisničko ime ili email nisu pronađeni.");
     }
 
     const user = results[0];
 
     // Provjera lozinke
-    if (password === user.password) { // Trebali biste koristiti hashing za lozinke u stvarnom sustavu
+    if (password === user.password) { // U stvarnom sustavu ovdje bi trebalo koristiti hashing lozinki
       // Prijava je uspješna
       res.status(200).send({ message: "Prijava uspješna", user });
     } else {
@@ -328,7 +329,6 @@ app.post("/api/login", (req, res) => {
     }
   });
 });
-
 
 /*Pokretanje servera
 const PORT = 3000;

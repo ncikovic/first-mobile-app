@@ -4,11 +4,11 @@
       <h1 class="text-center">Prijava</h1>
       <p class="text-center">Unesite svoje korisničke podatke za prijavu.</p>
 
-      <!-- Korisničko ime -->
+      <!-- Korisničko ime ili Email -->
       <q-input
-        v-model="username"
-        label="Korisničko ime"
-        :rules="[val => val && val.length > 0 || 'Korisničko ime je obavezno']"
+        v-model="usernameOrEmail"
+        label="Korisničko ime ili Email"
+        :rules="[val => val && val.length > 0 || 'Korisničko ime ili email je obavezno']"
         lazy-rules
         class="q-mb-md"
       />
@@ -40,16 +40,16 @@ import axios from "axios";
 export default {
   data() {
     return {
-      username: "",
+      usernameOrEmail: "",
       password: "",
       loginSuccess: false, // Za prikazivanje poruke o uspjehu
     };
   },
   methods: {
     async loginUser() {
-      if (this.username && this.password) {
+      if (this.usernameOrEmail && this.password) {  // Provjerava da su oba unesena
         const loginData = {
-          username: this.username,
+          usernameOrEmail: this.usernameOrEmail,
           password: this.password,
         };
 
@@ -64,14 +64,14 @@ export default {
           this.loginSuccess = true;
 
           // Resetiraj korisničko ime i lozinku
-          this.username = "";
+          this.usernameOrEmail = "";
           this.password = "";
         } catch (error) {
           console.error("Greška pri prijavi:", error);
           alert(error.response ? error.response.data : "Došlo je do greške");
         }
       } else {
-        alert("Molimo unesite korisničko ime i lozinku.");
+        alert("Molimo unesite korisničko ime/email i lozinku.");
       }
     },
   },
