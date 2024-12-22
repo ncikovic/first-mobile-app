@@ -8,11 +8,10 @@
 // Configuration for your app
 // https://v2.quasar.dev/quasar-cli-vite/quasar-config-js
 
+import { configure } from 'quasar/wrappers';
+import path from 'path';
 
-const { configure } = require('quasar/wrappers');
-const path = require('path');
-
-module.exports = configure(function (/* ctx */) {
+export default configure(function (/* ctx */) {
   return {
     // https://v2.quasar.dev/quasar-cli-vite/prefetch-feature
     // preFetch: true,
