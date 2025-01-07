@@ -1,16 +1,18 @@
 <template>
   <q-page class="q-pa-md flex justify-center items-center">
     <div class="form-container">
-      <h1 class="text-center">Prijava</h1>
-      <p class="text-center">Unesite svoje korisničke podatke za prijavu.</p>
+      <h1 class="text-center">Prijava administratora</h1>
+      <p class="text-center">
+        Unesite svoje administratorske podatke za prijavu.
+      </p>
 
       <!-- Korisničko ime ili Email -->
       <q-input
         v-model="username"
-        label="Korisničko ime ili Email"
+        label="Adminovo ime"
+        type="username"
         :rules="[
-          (val) =>
-            (val && val.length > 0) || 'Korisničko ime ili email je obavezno',
+          (val) => (val && val.length > 0) || 'Adminovo ime je obavezno',
         ]"
         lazy-rules
         class="q-mb-md"
@@ -30,7 +32,7 @@
       <q-btn
         label="Potvrdi"
         color="primary"
-        @click="loginUser"
+        @click="loginAdmin"
         class="full-width-btn"
       />
 
@@ -44,8 +46,10 @@
 
 <script>
 import axios from "axios";
+import { mapActions } from "vuex";
 
 export default {
+  name: "AdministratorLogin",
   data() {
     return {
       username: "",
@@ -54,7 +58,9 @@ export default {
     };
   },
   methods: {
-    async loginUser() {
+    //...mapActions(["loginAdmin"]), // Mapiranje akcije za prijavu
+
+    async loginAdmin() {
       if (this.username && this.password) {
         // Provjerava da su oba unesena
         const loginData = {
@@ -64,13 +70,13 @@ export default {
 
         try {
           const response = await axios.post(
-            "http://localhost:3000/api/user",
+            "http://localhost:3000/api/admin",
             loginData
           );
           console.log("Prijava uspješna:", response.data);
 
           // Spremanje korisničkih podataka
-          localStorage.setItem("user", JSON.stringify(response.data.user));
+          localStorage.setItem("admin", JSON.stringify(response.data.user));
 
           // Postavi loginSuccess na true kako bi prikazao poruku
           this.loginSuccess = true;
@@ -80,13 +86,13 @@ export default {
           this.password = "";
 
           // Preusmjeravanje na početnu stranicu
-          this.$router.push("/");
+          this.$router.push("/admin");
         } catch (error) {
           console.error("Greška pri prijavi:", error);
           alert(error.response ? error.response.data : "Došlo je do greške");
         }
       } else {
-        alert("Molimo unesite korisničko ime/email i lozinku.");
+        alert("Molimo unesite korisničko ime i lozinku.");
       }
     },
   },

@@ -6,9 +6,12 @@ const routes = [
       { path: "", component: () => import("pages/IndexPage.vue") },
       {
         path: "/o_nama",
-        component: () => {
-          return import("pages/ONamaPage.vue");
-        },
+        component: () => import("layouts/MainLayout.vue"),
+        children: [
+          { path: "", component: () => import("pages/ONamaPage.vue") },
+          { path: "/kontakt", component: () => import("pages/Kontakt.vue") },
+          { path: "/nas_tim", component: () => import("pages/NasTim.vue") },
+        ],
       },
       {
         path: "/dogadaji",
@@ -23,10 +26,18 @@ const routes = [
         },
       },
       {
-        path: "/prijavaKorisnika",
-        component: () => {
-          return import("pages/PrijavaKorisnikaPage.vue");
-        },
+        path: "/Prijava",
+        component: () => import("layouts/MainLayout.vue"),
+        children: [
+          {
+            path: "/administrator",
+            component: () => import("pages/Administrator.vue"),
+          },
+          {
+            path: "/prijavaKorisnika",
+            component: () => import("pages/PrijavaKorisnikaPage.vue"),
+          },
+        ],
       },
       {
         path: "/registracijaKorisnika",
@@ -39,6 +50,17 @@ const routes = [
         component: () => {
           return import("pages/PostavkePage.vue");
         },
+      },
+    ],
+  },
+  {
+    path: "/admin",
+    component: () => import("layouts/AdminLayout.vue"),
+    children: [
+      { path: "", component: () => import("pages/IndexPage.vue") },
+      {
+        path: "/admin/postavke",
+        component: () => import("pages/PostavkePage.vue"),
       },
     ],
   },

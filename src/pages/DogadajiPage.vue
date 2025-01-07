@@ -25,11 +25,10 @@
               <strong>NAZIV DOGAĐAJA:</strong> {{ eventDetails[date].name }}
             </p>
             <p>
-              <strong>MJESTO DOGAĐAJA:</strong> {{ eventDetails[date].location }}
+              <strong>MJESTO DOGAĐAJA:</strong>
+              {{ eventDetails[date].location }}
             </p>
-            <p>
-              <strong>OPIS:</strong> {{ eventDetails[date].description }}
-            </p>
+            <p><strong>OPIS:</strong> {{ eventDetails[date].description }}</p>
           </div>
         </div>
       </template>
@@ -227,7 +226,7 @@ export default {
 
 .event-detail {
   padding: 16px;
-  background-color: #fff;
+  background-color: #d0b4fd;
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   margin-bottom: 20px;
