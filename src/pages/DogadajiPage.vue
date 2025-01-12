@@ -1,39 +1,53 @@
 <template>
-  <div class="container">
-    <q-splitter
-      v-model="splitterModel"
+  <div>
+    <q-splitter before-class="jedan" after-class="dogadaji"      
+    v-model="splitterModel"
       style="
-        height: 600px;
+        height: 90vh;
         border-radius: 8px;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); 
       "
+      class="responsive"
     >
       <template v-slot:before>
-        <div class="q-pa-md map-container">
+        <div class="q-pa-md map-container ">
           <div class="q-mb-md calendar-container">
             <q-date v-model="date" :events="events" event-color="yellow" />
           </div>
-          <div id="map" class="map"></div>
+          
         </div>
+        
       </template>
 
       <template v-slot:after>
-        <div class="event-details-container">
-          <div v-if="eventDetails[date]" class="event-detail">
-            <div class="text-h4 q-mb-md">{{ date }}</div>
-            <p>
-              <strong>NAZIV DOGAĐAJA:</strong> {{ eventDetails[date].name }}
-            </p>
-            <p>
-              <strong>MJESTO DOGAĐAJA:</strong>
-              {{ eventDetails[date].location }}
-            </p>
-            <p><strong>OPIS:</strong> {{ eventDetails[date].description }}</p>
-          </div>
-        </div>
+        <q-tab-panels 
+          v-model="date"
+          animated
+          transition-prev="jump-up"
+          transition-next="jump-up"
+          
+        >
+          <q-tab-panel v-for="event in events" :name="event" :key="event">
+            <div class="event-detail pocrnit">
+              <div class="text-h4 q-mb-md">{{ event }}</div>
+              <p>
+                <strong>NAZIV DOGAĐAJA:</strong> {{ eventDetails[event].name }}
+              </p>
+              <p>
+                <strong>MJESTO DOGAĐAJA:</strong>
+                {{ eventDetails[event].location }}
+              </p>
+              <p>
+                <strong>OPIS:</strong> {{ eventDetails[event].description }}
+              </p>
+            </div>
+          </q-tab-panel>
+        </q-tab-panels>
       </template>
     </q-splitter>
+    <div id="map" class="map"></div>
   </div>
+  
 </template>
 
 <script>
@@ -199,12 +213,6 @@ export default {
 </script>
 
 <style scoped>
-.container {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  height: 100%;
-}
 
 #map {
   height: 100%;
@@ -212,10 +220,23 @@ export default {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
+.map{
+  width:70vw;
+  height:45vh !important;
+  position: absolute !important;
+  bottom: 0;
+  left:20%;
+  margin-left:5%;
+
+}
+
+
 .map-container {
   display: flex;
   flex-direction: column;
   height: 100%;
+  justify-self: left;
+  width:90vw !important;
 }
 
 .calendar-container {
@@ -226,7 +247,7 @@ export default {
 
 .event-detail {
   padding: 16px;
-  background-color: #d0b4fd;
+  background-color: #fff;
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   margin-bottom: 20px;
@@ -256,24 +277,37 @@ export default {
   padding: 16px;
 }
 
-@media (max-width: 768px) {
-  .calendar-container {
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-  }
 
-  #map {
-    height: 300px;
-  }
+@media only screen and (max-width: 1000px) {
+.responsive{
+  display: grid;
+  grid-template-columns: 1fr;
+  height:80svh !important;
+  margin-bottom: 0 !important;
+  grid-template-rows: 60% 40% !important;
+}
+::v-deep(.jedan) {
+  width:100vw !important;
+}
+  
+.map{
+  height:50svh !important;
+  position: relative !important;
+ width:100%;
+ left:0;
+ margin-left:0;
+}
 
-  .q-splitter__before {
-    height: auto;
-  }
+::v-deep(.dogadaji){
+  grid-row-start: 2 !important;
+  width:90vw !important;
+}
+}
 
-  .event-detail {
-    width: 100%;
-    font-size: 14px;
-  }
+
+@media only screen and (max-height: 800px) {
+  .responsive{
+  height:100svh !important;
+}
 }
 </style>
