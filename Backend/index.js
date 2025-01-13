@@ -84,63 +84,56 @@ app.get("/api/veterinarians/:id", (req, res) => {
   );
 });
 
-app.post("/api/admin", (req, res) => {
+app.post("/api/login", (req, res) => {
   const { username, password } = req.body;
 
   if (!username || !password) {
-    return res.status(400).send("Molimo unesite korisničko ime i lozinku.");
+    return res.status(400).json({ message: "Molimo unesite korisničko ime i lozinku." });
   }
 
-  // SQL upit za provjeru administratora
-  const query = `
+  // Prvo provjeravamo u tablici Administrator
+  const adminQuery = `
     SELECT * FROM Administrator
-    WHERE koris_ime_admina IN ('ncikovic', 'kblazevic')
-      AND Koris_ime_admina = ?
+    WHERE koris_ime_admina = ?
       AND lozinka_admina = ?
   `;
 
-  connection.query(query, [username, password], (error, results) => {
-    if (error) {
-      console.error("Greška pri provjeri korisnika:", error);
-      return res.status(500).send("Greška na serveru.");
+  connection.query(adminQuery, [username, password], (adminError, adminResults) => {
+    if (adminError) {
+      console.error("Greška pri provjeri administratora:", adminError);
+      return res.status(500).json({ message: "Greška na serveru." });
     }
 
-    if (results.length === 0) {
-      return res.status(401).send("Neispravno korisničko ime ili lozinka.");
+    if (adminResults.length > 0) {
+      return res.status(200).json({
+        message: "Uspješna prijava!",
+        user: { username, role: "admin" },
+      });
     }
 
-    // Uspješna prijava
-    res.status(200).send(`Dobrodošli, ${username}!`);
-  });
-});
+    // Ako nije administrator, provjeravamo u tablici Korisnik
+    const userQuery = `
+      SELECT * FROM Korisnik
+      WHERE nadimak_korisnika = ?
+        AND lozinka_korisnika = ?
+    `;
 
-app.post("/api/user", (req, res) => {
-  const { username, password } = req.body;
+    connection.query(userQuery, [username, password], (userError, userResults) => {
+      if (userError) {
+        console.error("Greška pri provjeri korisnika:", userError);
+        return res.status(500).json({ message: "Greška na serveru." });
+      }
 
-  if (!username || !password) {
-    return res.status(400).send("Molimo unesite korisničko ime i lozinku.");
-  }
+      if (userResults.length === 0) {
+        return res.status(401).json({ message: "Neispravno korisničko ime ili lozinka." });
+      }
 
-  // SQL upit za provjeru korisnika
-  const query = `
-    SELECT * FROM Korisnik
-    WHERE nadimak_korisnika IN ('Anchi','Marko','Zoja','Sarchi')
-      AND nadimak_korisnika = ?
-      AND lozinka_korisnika = ?
-  `;
-
-  connection.query(query, [username, password], (error, results) => {
-    if (error) {
-      console.error("Greška pri provjeri korisnika:", error);
-      return res.status(500).send("Greška na serveru.");
-    }
-
-    if (results.length === 0) {
-      return res.status(401).send("Neispravno korisničko ime ili lozinka.");
-    }
-
-    // Uspješna prijava
-    res.status(200).send(`Dobrodošli u Pets&Care!`);
+      // Uspješna prijava korisnika
+      res.status(200).json({
+        message: "Uspješna prijava!",
+        user: { username, role: "user" },
+      });
+    });
   });
 });
 

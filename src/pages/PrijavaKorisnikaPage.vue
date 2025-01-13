@@ -7,10 +7,9 @@
       <!-- Korisničko ime ili Email -->
       <q-input
         v-model="username"
-        label="Korisničko ime ili Email"
+        label="Korisničko ime"
         :rules="[
-          (val) =>
-            (val && val.length > 0) || 'Korisničko ime ili email je obavezno',
+          (val) => (val && val.length > 0) || 'Korisničko ime je obavezno',
         ]"
         lazy-rules
         class="q-mb-md"
@@ -56,7 +55,6 @@ export default {
   methods: {
     async loginUser() {
       if (this.username && this.password) {
-        // Provjerava da su oba unesena
         const loginData = {
           username: this.username,
           password: this.password,
@@ -64,29 +62,29 @@ export default {
 
         try {
           const response = await axios.post(
-            "http://localhost:3000/api/user",
-            loginData
+            "http://localhost:3000/api/login",
+            loginData,
+            {
+              headers: { "Content-Type": "application/json" },
+            }
           );
+
           console.log("Prijava uspješna:", response.data);
 
-          // Spremanje korisničkih podataka
-          localStorage.setItem("user", JSON.stringify(response.data.user));
+          if (response.data.user) {
+            const user = response.data.user;
+            localStorage.setItem("user", JSON.stringify(user));
 
-          // Postavi loginSuccess na true kako bi prikazao poruku
-          this.loginSuccess = true;
-
-          // Resetiraj korisničko ime i lozinku
-          this.username = "";
-          this.password = "";
-
-          // Preusmjeravanje na početnu stranicu
-          this.$router.push("/");
+            this.$router.push(user.role === "admin" ? "/admin" : "/");
+          } else {
+            alert("Neispravni podaci za prijavu!");
+          }
         } catch (error) {
           console.error("Greška pri prijavi:", error);
-          alert(error.response ? error.response.data : "Došlo je do greške");
+          alert(error.response?.data?.message || "Greška na serveru.");
         }
       } else {
-        alert("Molimo unesite korisničko ime/email i lozinku.");
+        alert("Molimo unesite korisničko ime i lozinku.");
       }
     },
   },

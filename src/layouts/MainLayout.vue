@@ -59,24 +59,6 @@
             </q-item-section>
           </q-item>
         </q-expansion-item>
-
-        <!-- Prijava (dropdown podstranice) -->
-        <q-expansion-item
-          icon="login"
-          label="Prijava"
-          caption="Prijavi se u svoj račun!"
-        >
-          <q-item clickable @click="navigateTo('/administrator')">
-            <q-item-section>
-              <q-item-label>ADMINISTRATOR</q-item-label>
-            </q-item-section>
-          </q-item>
-          <q-item clickable @click="navigateTo('/prijavaKorisnika')">
-            <q-item-section>
-              <q-item-label>KORISNIK</q-item-label>
-            </q-item-section>
-          </q-item>
-        </q-expansion-item>
       </q-list>
     </q-drawer>
 
@@ -112,6 +94,12 @@ const linksList = [
     caption: "Tražiš li veterinara?",
     icon: "search",
     link: "/popisVeterinara",
+  },
+  {
+    title: "Prijava",
+    caption: "Prijavi se u svoj račun",
+    icon: "login",
+    link: "/prijavaKorisnika",
   },
   {
     title: "Registracija korisnika",
